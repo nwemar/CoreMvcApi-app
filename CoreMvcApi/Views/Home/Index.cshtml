@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Title</td>
+                <td>Price</td>
+                <td>Description</td>
+            </tr>
+        </thead>
+        <tbody class="tbody"></tbody>
+    </table>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+          
+
+            $.getJSON('/api/BookAPI/GetBookList', function (result) {
+                var html = '';
+                $.each(result, function (key, item) {
+                    html += '<tr>';
+                    html += '<td>' + item.id + '</td>';
+                    html += '<td>' + item.title + '</td>';
+                    html += '<td>' + item.price + '</td>';
+                    html += '<td>' + item.description + '</td>';
+                    html += '</tr>';
+                });
+                $('.tbody').html(html);
+            });
+        });
+    </script>
+}
